@@ -1,0 +1,129 @@
+<html>
+<head>
+<!-- #das ist alles für die reviewmenu-tabs -->
+			<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+
+			<script src="http://code.jquery.com/jquery-1.9.1.js">
+			</script>
+
+			<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js">
+			</script>
+
+			<link rel="stylesheet" href="/resources/demos/style.css" />
+
+			<script>
+			  $(function() {
+			    $( "#tabs" ).tabs();
+			  });
+			</script>
+
+<!-- #das ist dafür, dass wenn man auf add more klickt, man mehr felder bekommt um essen hinzuzufügen -->
+		
+		<script type="text/javascript">
+			function add_fields() {
+    			document.getElementById('wrapper').innerHTML += '<span> Label: <input type="text"><small>(ft)</small></span>\r\n';
+					}
+		</script>
+
+</head>
+
+
+<body>
+<!-- #form zum filtern ansonsten zeigt es die ganze liste an -->
+	<h1>More about <%= @response["name"] %> </h1>
+
+	<div>
+				<p>Rating: <%= @response["rating"] %> </p>
+				<p> <a href="<%= @response["url"] %> "> More on Yelp </a> </p>
+				<p>Category: <%= @response["categories"].join(" ") %> </p>
+				<p> Address: <%= @response["location"]["display_address" ].join(" ") %> </p>
+				<p> Has the restaurant closed? 
+					<% if @response["is_closed"] == 'true' %> 
+						Yes
+					<% else %>
+						No
+					<% end %>
+				</p>
+	</div>
+
+
+<!-- #jquery widget for nav tabs -->
+<!-- #ich schreieb die geladenen teile jetzt hier rein aber ideal werden sie aus ajax geladen -->
+	<div id="tabs" class="tabs_reviewmenu">
+	  <ul>
+	    <li> <a href="#tabs-1"> Reviews </a></li>
+	    <li> <a href="#tabs-2"> Menu </a></li>
+	  </ul>
+	
+		<div id="tabs-1"> 
+			<p> <!-- Das hier ist Tab Content 1.  -->
+					<p>Past Reviews from Yelp: <br> <% @response["reviews"].each do |review| %>
+					Rating: <%= review["rating"] %> <br>
+					Review: <%= review["excerpt"] %><br>
+					<%end%>
+					</p>
+
+					<form>
+						<input type="text" name="post[content]" placeholder="Write your own restuarant order review">
+						<input type ="submit">
+					</form>
+
+			</p> 
+		</div>
+		<div id="tabs-2"> 
+
+			<p> <!-- Das heir ist Tab Content 2.  -->
+			<div id="order_individual">
+    	<div class='label'> Your order: </div>
+			<div class="content" id="wrapper">
+					<span> 
+        <form method="post" action="/orders">
+        			<input type="hidden" name="order[restaurant_id]" value="<%= @restaurant_id %>" >
+        		  <select name="item[item_type]">
+								  <option value="appetizer">Appetizer</option>
+								  <option value="maincourse">Main Course</option>
+								  <option value="dessert">Dessert</option>
+								  <option value="beverage">Beverage</option>
+							</select>
+
+            	<input type ="text" name="item[item_name]" placeholder="Choose item">
+            	<input type="text" name="item[quantity]" placeholder="Select quantity">
+           </span>
+
+         	<input type="button" id="more_fields" onclick="add_fields();" value="Add More" />
+         	<br>
+         	<br>
+
+           </div>
+				</div>
+
+<!--     NÄCHSTE FUNKTIOn: #und dann soll das hier aufpoppen so oft man "Add more" klickt: -->
+
+			        							<!-- <small>(ft)</small> -->
+
+ 
+            	<input type="text" name="order[tip]" placeholder="Tip Amount">
+            	
+            	<br>
+            	<br>
+
+            	<input type="submit">
+
+            	<br>
+            	<br>
+        
+        </form>
+
+    	</div>	
+
+			</p> 
+
+		</div>
+
+
+ </div>
+
+
+</body>
+</html>
+

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>HamptonsfooddeliveryApp</title>
+  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
+<%= yield %>
+
+	<div>
+		<a href="/hamptons/contact">Contact</a>
+	</div>
+
+	<div>
+		<a href="/hamptons/about">About</a>
+	</div>
+
+	<div>
+		<a href="/hamptons">Logout</a>
+	</div>
+
+
+	<div>
+		<a href="/sessions/new">Login</a>
+	</div>
+
+	<div>
+		<a href="/users/new">SignUp</a>
+	</div>	
+
+</body>
+</html>

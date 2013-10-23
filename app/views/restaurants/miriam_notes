@@ -1,0 +1,34 @@
+old new.html.erb page:
+
+<h1> Order from your Hamptons favorites:</h1>
+
+<div id="search_form"> 
+<form method="post" action="/restaurants">
+
+	<input type="text" name="restaurant[town]" placeholder ="town">
+	<input type="text" name="restaurant[cusisine]" placeholder ="cuisine">
+<br>
+<br>
+	<input type="submit">
+</form>
+
+</div>
+
+<div>
+	<h2>Or see the results of all our Hamptons restaurants: </h2>
+
+	<% @response1.each do |city, response| %>
+
+	<h3> <%= city %> </h3>    
+	
+	<% response["businesses"].each do |restaurant| %>
+
+		<p> <%=	restaurant["name"],  %> </p>
+
+		<!-- img, name, hours, rating, more details link -->
+
+	<% end %>
+
+<%end %>
+
+</div>

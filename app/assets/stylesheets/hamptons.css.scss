@@ -1,0 +1,24 @@
+#page {
+	width: 100%;
+	height: 100%;
+	repeat: no-repeat;
+}
+
+#search_button {
+
+	position: relative;
+    z-index: 10; 
+    color: green;   
+    font-size:26px;
+    font-family: 'Andale Mono';
+    src: url('AndaleMono-webfont.eot?') format('eot'), url('AndaleMono-webfont.woff') format('woff'), url('AndaleMono-webfont.ttf') format('truetype');
+		left: 50%;
+		margin: -640px 0px 100px -1200px;
+}
+
+
+
+
+// Place all the styles related to the hamptons controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/

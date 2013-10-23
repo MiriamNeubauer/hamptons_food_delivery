@@ -1,0 +1,19 @@
+<h1> Search your Hamptons favorites! </h1>
+
+<h2> !!!!!!!Map here!!!!! </h2>
+
+<% @response["businesses"].each do |restaurant| %>
+
+	<p> 
+		<img src="<%= restaurant["image_url"] %>">
+		<%= restaurant["name"] %> 
+		<%= restaurant["location"]["city"] %>
+		<%= restaurant["categories"] %>
+		<a href="restaurants/<%= restaurant["id"] %>"> More details </a>
+	</p>
+	<br>
+	<br>
+	<br>
+
+
+<% end %>
