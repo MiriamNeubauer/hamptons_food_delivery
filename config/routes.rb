@@ -28,5 +28,9 @@ get "/hamptons/about", to: "hamptons#about"
 
 get "/hamptons/contact", to: "hamptons#contact"
 
+post '/orders', to: 'orders#create'
+
+get '/orders/:id', to: 'orders#show'
+
 
 end

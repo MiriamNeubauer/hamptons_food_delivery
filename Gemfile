@@ -9,6 +9,10 @@ gem 'sqlite3'
 
 gem 'yelpster'
 
+gem 'typhoeus'
+
+gem 'json'
+
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -27,6 +31,9 @@ gem 'jquery-rails'
 
 # To use ActiveModel has_secure_password
 gem 'bcrypt-ruby', '~> 3.0.0'
+
+gem 'pry-rails' 
+gem 'pry'
 
 # To use Jbuilder templates for JSON
 # gem 'jbuilder'

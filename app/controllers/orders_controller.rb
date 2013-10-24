@@ -11,10 +11,10 @@ class OrdersController < ApplicationController
   
    # raise order.inspect
   	item = params[:item]
-			order.items.create(:item_name => item[:item_name], :item_type => item[:item_type], :quantity => item[:quantity])
+			order.items.create(:item_name => item[:item_name], :item_type => item[:item_type], :quantity => item[:quantity].to_i)
 
 
-		raise item.inspect
+		# raise item.inspect
 	#order.items.create damit haben wir ein leeres hash erstellt => sieht man in bash. geht deshlab weil wir belongs<-to beziehung haben
 
  
@@ -22,11 +22,21 @@ class OrdersController < ApplicationController
 
   #item type wäre appetizer, dessert, main, beverage
 
+  	redirect_to order #das gehtbzu der order variable die wir gerade kreiert ahben
+		#am ende von create IMMER REDIRECT
 	end
 
 
 	def show
-		@order = Order.find(params[:id])
+
+		# binding.pry
+
+		@order_id = params[:id]
+		#leitet nicht zu/id ws weil hier item UND order id auf der sieite sind und 
+		#er nicht weiß welches er nehmen soll
+
+		# redirect_to order_path
+		# render :show
 	end
 
 end

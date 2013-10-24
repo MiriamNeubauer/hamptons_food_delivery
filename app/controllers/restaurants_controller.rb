@@ -5,21 +5,50 @@ include Yelp::V2::Business::Request
 
 	def index
 	
-		restaurant = params[:restaurant]
+	#fragt die yelpster api nach restaurant daten
+			restaurant = params[:restaurant]
 
-		client = Yelp::Client.new
+			client = Yelp::Client.new
 
-		request = Location.new(
-				:state => "NY",
-				:city => restaurant[:town],
-				:term => "restaurant #{restaurant[:cuisine]} ")
+			request = Location.new(
+					:state => "NY",
+					:city => restaurant[:town],
+					:term => "restaurant #{restaurant[:cuisine]} ")
 
-		@response = client.search(request)
+			@response = client.search(request)
+			# render :json =>  @data = @response["businesses"] #damit kann man dies eite als json view sehen
 
-		# render :inline => "#{response}"
+			 # @data = @response.map {|d| d["location"]["display_address"].join(", ") }
+			 #benennennnnn 
+
+			 @data = @response["businesses"]
+			# render :inline => "#{response}"
+@businesses = []
+
+@data.each do |business|	
+
+	address = business["location"]["display_address"][0] + business["location"]["display_address"][1] + business["location"]["display_address"][2]
+# end
 
 
-	end
+# p @data
+	#fragt die yelpster api nach geo-daten wie longitue und latitude. nein schmarrn, wir kriegen die daten ja eh zurück
+							query = URI::escape(address) 
+										#escape nimmt einfach die white spaces zwischen den sachen raus
+							result = Typhoeus.get("http://maps.googleapis.com/maps/api/geocode/json?address=#{query}&sensor=true")
+							result_hash = JSON.parse(result.body)
+							result_hash["results"].each do |result|
+							olat = result["geometry"]["location"]["lat"]
+							olng = result["geometry"]["location"]["lng"]
+
+							@businesses << [olat,olng]
+						end
+end
+
+# binding.pry
+
+
+end  #for index method
 
 	def new
 
@@ -59,6 +88,9 @@ include Yelp::V2::Business::Request
         :yelp_business_id => @restaurant_id)
 
 		@response = client.search(request)
+
+
+		@restaurant_name = params[:name]
 
 	end
 

@@ -1,19 +1,150 @@
-<h1> Search your Hamptons favorites! </h1>
+<html>
+<head>
+	<title> List of all relevant restaurants</title>
 
-<h2> !!!!!!!Map here!!!!! </h2>
+	 <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.css" />
+	 <script src="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.js"></script>
+	 <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&key=AIzaSyALEtHCebJoOjEjyZmZVr_cUaPIvnu60M8"></script>
 
-<% @response["businesses"].each do |restaurant| %>
+</head>
+<body>
 
-	<p> 
-		<img src="<%= restaurant["image_url"] %>">
-		<%= restaurant["name"] %> 
-		<%= restaurant["location"]["city"] %>
-		<%= restaurant["categories"] %>
-		<a href="restaurants/<%= restaurant["id"] %>"> More details </a>
-	</p>
-	<br>
-	<br>
-	<br>
+		<h2> These restaurants match your search </h2>
+
+<!-- #hier ist die Leaflet-Landkarte: -->
+
+			<div id="map">
+				<!-- #initialize the map and set its view to our chosen geographical coordinates and a zoom level -->
+						
+						<script>
+
+						// #erstellt die landkarte für eine gegeben (1.argument in der klammer)latitude und (2.argument)longitude sowie zoom-faktor
+						var map = L.map('map').setView([40.9378777, -72.3009158], 12);
+
+						// #fügt die tile layer hinzu
+								L.tileLayer('http://{s}.tile.cloudmade.com/6f0513128f874549b7128f69db6d0e95/997/256/{z}/{x}/{y}.png', {
+						    attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://cloudmade.com">CloudMade</a>',
+						    maxZoom: 18
+								}).addTo(map);
 
 
-<% end %>
+								var businesses = <%= @businesses.to_json.html_safe %> ;
+						// #das gibt uns alle der suche entsprechenden business (als array)
+						// var data = <%= @data.to_json.html_safe %>;
+
+						for (var i = 0; i < businesses.length; i++) {
+
+
+							var marker = L.marker(i).bindPopup("name").addTo(map);
+
+						};
+
+						//wir können einfach L.marker(i) schreiben weil i selbst das [olat, olng] array ist für jedes business!!!
+
+// #das machen wir weil die addresse ja aus 3 elementen besteht
+										// var address = data[i].location.display_address[0] + data[i].location.display_address[1] + data[i].location.display_address[2]
+						
+										// #den teil habe ich aus dem Google Maps API v3 Geocoder hinzugefügt: von hier: http://www.etechpulse.com/2013/09/how-to-geocode-address-or-zip-code.html
+										//Geocode function for the origin location:
+
+										// function GoogleGeocode() {
+										// 	  geocoder = new google.maps.Geocoder();
+										// 	  this.geocode = function(address, callbackFunction) {
+										// 	      geocoder.geocode( { 'address': address}, function(results, status) {
+										// 	        if (status == google.maps.GeocoderStatus.OK) {
+										// 	          var result = {};
+										// 	          result.latitude = results[0].geometry.location.lat();
+										// 	          result.longitude = results[0].geometry.location.lng();
+										// 	          callbackFunction(result);
+										// 	        } else {
+										// 	          alert("Geocode was not successful for the following reason: " + status);
+										// 	          callbackFunction(null);
+										// 	        }
+										// 	      });
+										// 	  };
+										// 	}	
+
+
+										// query = URI::escape(address) 
+										// // #escape nimmt einfach die white spaces zwischen den sachen raus
+										// result = Typhoeus.get("http://maps.googleapis.com/maps/api/geocode/json?address=#{query}&sensor=true")
+										// result_hash = JSON.parse(result.body)
+										// result_hash["results"].each do |result|
+										// 	var olat = result["geometry"]["location"]["lat"]
+										// 	var olng = result["geometry"]["location"]["lng"]
+										// end
+									//Process form restaurant locations, weil man ja die google geocode methode auf etwas anwenden muss
+
+										      // var g = new GoogleGeocode();
+
+										      // g.geocode(address, function(data) {
+										      //   if(data != null) {
+										      //     var olat = data.latitude;
+										      //     var olng = data.longitude;
+
+										          // return olat;
+										          // return olng;
+										          // #man kann immer nur 1 item wiedergeben.also nur 1 return, nicht 2 für olat und olng
+
+										          // #man kann diese variablen nur innerhalb diese funktion wieder aufgreifen!!! nicht woanders. wenn man es woanders a
+										          // #aufgreiden will dann muss man eine variable außerhalb diese funktion aufsetzen
+
+										          // var olat_new = [olat, olng];
+															// #fügt die marker hinzu
+
+															// create marker
+															// get business info from data object
+															// set up the popup thing
+
+															
+										          // return olat_new;
+
+										        // } else {
+										        //   //Unable to geocode
+										        //   alert('ERROR! Unable to geocode address');
+										        // }
+										      // });
+							// } //schließt das for-loop
+
+
+
+			// #sorgt dafür, dass ein text aufpoppt wenn man einen marker anklickt. und das für jedes geladenen restaurant.
+			// 					<% @response["businesses"].each do |restaurant| %>
+
+			// 								marker.bindPopup("<b> <%= restaurant["name"] %> </b> <br> <%= restaurant["location"]["city"] %> ").openPopup();
+
+			// 					<% end %>
+
+						</script>
+
+			</div>
+
+
+<!-- #hier beginnt die Liste der relevanten Restaurants -->
+
+				<% @response["businesses"].each do |restaurant| %>
+
+						<p> 
+							<img src="<%= restaurant["image_url"] %>">
+							<%= restaurant["name"] %> 
+							<%= restaurant["location"]["city"] %>
+							<%= restaurant["categories"] %>
+							<a href="restaurants/<%= restaurant["id"] %>"> More details </a>
+						</p>
+										<br>
+										<br>
+										<br>
+					<% end %>
+
+<!-- #<%= @response %> -->
+
+<!-- #brauche ich bier einen zusätzlichen yelpster request im controller???????nein!! -->
+<!-- #das problem ist ein anderes: der request gibt einem nicht die latidude u longitude von jedem restaurant zurück!!! sondern nur die von der region, in dem die für die suche relevanten restaurants liegen sowie deren geografisches zentrum -->
+<!-- #FEHLWERHAFT!!!! ich brauch die geodate von jedem restaurant!! -->
+
+
+
+</body>
+</html>
+
+

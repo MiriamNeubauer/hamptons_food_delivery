@@ -32,3 +32,162 @@ old new.html.erb page:
 <%end %>
 
 </div>
+
+
+#GEOCODE:
+
+						function GoogleGeocode() {
+							  geocoder = new google.maps.Geocoder();
+							  this.geocode = function(address, callbackFunction) {
+							      geocoder.geocode( { 'address': address}, function(results, status) {
+							        if (status == google.maps.GeocoderStatus.OK) {
+							          var result = {};
+							          result.latitude = results[0].geometry.location.lat();
+							          result.longitude = results[0].geometry.location.lng();
+							          callbackFunction(result);
+							        } else {
+							          alert("Geocode was not successful for the following reason: " + status);
+							          callbackFunction(null);
+							        }
+							      });
+							  };
+							}	
+
+
+						//Process form restaurant locations, weil man ja die google geocode methode auf etwas anwenden muss
+							var geo_result = $(function() {
+							  $('#search_form').on('submit', function(e){
+
+							    //Take each of the yelp search results for their address found on ["location"]["display_address"]
+
+
+							    // #hier fehlt noch for each restaurant dooo
+							    var restaurant_addresses_from_search_form = $('<% @response["location"]["display_address"]').val();
+
+							    // #do i need to gibe the @ response thingy an id in my controller?
+							    // #or can jquery read it like that??
+							    // und oben in die leaflet marker muss eine variable
+
+							      var g = new GoogleGeocode();
+							      var address = restaurant_addresses_from_search_form;
+
+							      g.geocode(address, function(data) {
+							        if(data != null) {
+							          var olat = data.latitude;
+							          var olng = data.longitude;
+
+							          // return olat;
+							          // return olng;
+							          // #man kann immer nur 1 item wiedergeben.also nur 1 return, nicht 2 für olat und olng
+
+							          // #man kann diese variablen nur innerhalb diese funktion wieder aufgreifen!!! nicht woanders. wenn man es woanders a
+							          // #aufgreiden will dann muss man eine variable außerhalb diese funktion aufsetzen
+
+							          var olat_new = [olat, olng];
+
+							          return olat_new;
+
+							        } else {
+							          //Unable to geocode
+							          alert('ERROR! Unable to geocode address');
+							        }
+							      });
+
+							  });
+							});	
+
+
+#OTHER CODE UNTER FEHLERHAFT:
+
+					<% @response.each do |restaurant| %>
+
+							<p> 
+								<% restaurant["region"]["center"]["latitude"] %>
+								<% restaurant["region"]["center"]["longitude"] %>
+							</p>
+										<br>
+										<br>
+										<br>
+					<% end %> 
+
+#NEUER GOOGLE MAPS GEOCODE DER FAST KLAPPT: 
+
+// #das machen wir weil die addresse ja aus 3 elementen besteht
+										var address = data[i].location.display_address[0] + data[i].location.display_address[1] + data[i].location.display_address[2]
+						
+										// #den teil habe ich aus dem Google Maps API v3 Geocoder hinzugefügt: von hier: http://www.etechpulse.com/2013/09/how-to-geocode-address-or-zip-code.html
+										//Geocode function for the origin location:
+
+										function GoogleGeocode() {
+											  geocoder = new google.maps.Geocoder();
+											  this.geocode = function(address, callbackFunction) {
+											      geocoder.geocode( { 'address': address}, function(results, status) {
+											        if (status == google.maps.GeocoderStatus.OK) {
+											          var result = {};
+											          result.latitude = results[0].geometry.location.lat();
+											          result.longitude = results[0].geometry.location.lng();
+											          callbackFunction(result);
+											        } else {
+											          alert("Geocode was not successful for the following reason: " + status);
+											          callbackFunction(null);
+											        }
+											      });
+											  };
+											}	
+
+
+									//Process form restaurant locations, weil man ja die google geocode methode auf etwas anwenden muss
+
+										      var g = new GoogleGeocode();
+
+										      g.geocode(address, function(data) {
+										        if(data != null) {
+										          var olat = data.latitude;
+										          var olng = data.longitude;
+
+										          // return olat;
+										          // return olng;
+										          // #man kann immer nur 1 item wiedergeben.also nur 1 return, nicht 2 für olat und olng
+
+										          // #man kann diese variablen nur innerhalb diese funktion wieder aufgreifen!!! nicht woanders. wenn man es woanders a
+										          // #aufgreiden will dann muss man eine variable außerhalb diese funktion aufsetzen
+
+										          var olat_new = [olat, olng];
+															// #fügt die marker hinzu
+
+															// create marker
+															// get business info from data object
+															// set up the popup thing
+
+															var marker = L.marker([name, 40.9378777, -72.3009158]).addTo(map);
+										          return olat_new;
+
+										        } else {
+										          //Unable to geocode
+										          alert('ERROR! Unable to geocode address');
+										        }
+										      });
+							} //schließt das for-loop
+
+
+#ANDERE LÖSUNG:
+										desc "Clean school data"
+										task :clean_schools => :environment do 
+										all_schools = OfflineSchool.all
+										all_schools.each do |school|
+										name = school.name
+										lat = school.latitude
+										if name.empty?
+										school.delete
+										else
+										query = URI::escape(school.street)
+										result = Typhoeus.get("http://maps.googleapis.com/maps/api/geocode/json?address=#{query}&sensor=true")
+										result_hash = JSON.parse(result.body)
+										result_hash["results"].each do |result|
+										@lat = result["geometry"]["location"]["lat"]
+										@lng = result["geometry"]["location"]["lng"]
+										end
+										school.update_attributes(latitude: @lat, longitude: @lng)
+										end
+										end
+										end
