@@ -1,4 +1,10 @@
-old new.html.erb page:
+#IN ORDER SHOW:
+
+    <!-- Your order number is: <%= @order.items.order %> -->
+
+<!-- 		<%= @order.items.inspect %> -->
+
+#OLD new.html.erb PAGE:
 
 <h1> Order from your Hamptons favorites:</h1>
 
