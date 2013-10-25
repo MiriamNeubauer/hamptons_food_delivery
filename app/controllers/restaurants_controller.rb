@@ -64,14 +64,14 @@ end  #for index method
 		@cities = ["Sag Harbor", "Bridgehampton", "Easthampton", "Southampton", "Westhampton"]
 
 		@response1 = Hash.new 
-		@cities.each do |city| 
+				@cities.each do |city| 
 
 					request = Location.new(
 				             :term => "restaurant",
 				             :city => city)
 							# :longitues, :latitude, :street,:phone, :reviews, :hourd, :website, :rating, :parking, :vegetarian, :yelplink
 						# ???can i access here everything that comes up int he hash?
-					@response1 = client.search(request)
+					@response1[city] = client.search(request)
 		# puts "."*50
 		# p @response1[city]
 		# # oder soll ich eine neue, eigene/nicht-REST methode da<für machen und das ganz an den anfang stellen damit gleich zum beginn der seite die DB geladen wird

@@ -94,16 +94,16 @@
 <!-- #- -->
 
 			</p> 
+
+
+					<div>
+					<% @posts.each do |post| %>
+						<%= post.content %> <br>
+					<% end %>
+					</div>
 		</div>
 
-		<div>
-	<% @posts.each do |post| %>
 
-		<%= post.content %> <br>
-
-	<% end %>
-
-</div>
 
 
 		<div id="tabs-2"> 
