@@ -17,15 +17,30 @@
 			  });
 			</script>
 
-<!-- #das ist dafür, dass wenn man auf add more klickt, man mehr felder bekommt um essen hinzuzufügen -->
-		
-		<script type="text/javascript">
-			function add_fields() {
-    			document.getElementById('wrapper').innerHTML += '<span> 
-    			Label: <input type="text">
-    			</span>\r\n';
+       <!-- #das ist dafür, dass wenn man auf add more klickt, man mehr felder bekommt um essen hinzuzufügen -->
+			<script>
+				var rowNum = 0;
+				function addRow(frm) {
+					rowNum ++;
+					var row = '<p id="rowNum'+rowNum+'">';
+					row += '<select name="item' + rowNum + '[item_type]">';
+					row += '<option value="appetizer">Appetizer</option>';
+					row += '<option value="maincourse">Main Course</option>';
+					row += '<option value="dessert">Dessert</option>';
+					row += '<option value="beverage">Beverage</option>';
+					row += '</select>';
+					row += 'Choose item: <input type="text" name="item' + rowNum + '[item_name]"> Select quantity: <input type="text" name="item' + rowNum + '[quantity]"> <input type="button" value="Remove" onclick="removeRow('+rowNum+');"></p>';
+	
+					$('#itemRows').append($(row));
+					frm.add_qty.value = '';
+					frm.add_name.value = '';
 					}
-		</script>
+
+				function removeRow(rnum) {
+					jQuery('#rowNum'+rnum).remove();
+					}
+			</script>
+
 
 </head>
 
@@ -75,35 +90,29 @@
 		<div id="tabs-2"> 
 
 			<p> <!-- Das heir ist Tab Content 2.  -->
-			<div id="order_individual">
-    	<div class='label'> Your order: </div>
-			<div class="content" id="wrapper">
-					<span> 
-        <form method="post" action="/orders">
+
+				
+        	<form method="post" action="/orders">
+
+        		<div id="itemRows">
+
         			<input type="hidden" name="order[restaurant_id]" value="<%= @restaurant_id %>" >
-        		  <select name="item[item_type]">
-								  <option value="appetizer">Appetizer</option>
-								  <option value="maincourse">Main Course</option>
-								  <option value="dessert">Dessert</option>
-								  <option value="beverage">Beverage</option>
-							</select>
+        		  	<select name="item[item_type]">
+									  <option value="appetizer">Appetizer</option>
+									  <option value="maincourse">Main Course</option>
+									  <option value="dessert">Dessert</option>
+									  <option value="beverage">Beverage</option>
+								</select>
 
-            	<input type ="text" name="item[item_name]" placeholder="Choose item">
-            	<input type="text" name="item[quantity]" placeholder="Select quantity">
-           </span>
+	            	Choose item: <input type ="text" name="item[item_name]">
+	            	Select quantity: <input type="text" name="item[quantity]">
 
-         	<input type="button" id="more_fields" onclick="add_fields();" value="Add More" />
+	            	<input onclick="addRow();" type="button" value="Add row" />
+
+
+        		</div>
          	<br>
-         	<br>
-
-           </div>
-				</div>
-
-<!--     NÄCHSTE FUNKTIOn: #und dann soll das hier aufpoppen so oft man "Add more" klickt: -->
-
-			        							<!-- <small>(ft)</small> -->
-
- 
+						     
             	<input type="text" name="order[tip]" placeholder="Tip Amount">
             	
             	<br>

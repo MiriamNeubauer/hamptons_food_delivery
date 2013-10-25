@@ -41,7 +41,11 @@ include Yelp::V2::Business::Request
 							olat = result["geometry"]["location"]["lat"]
 							olng = result["geometry"]["location"]["lng"]
 
-							@businesses << [olat,olng]
+							@businesses << {
+								coordinates: [olat,olng],
+								name: business["name"],
+								city: business["location"]["city"]
+							}
 						end
 end
 

@@ -4,7 +4,7 @@ HamptonsfooddeliveryApp::Application.routes.draw do
 resources :restaurants
 resources :orders
 resources :posts
-resources :users
+resources :users, except: [:index]
 resources :sessions, only: [:new, :create]
 
 root to: 'hamptons#index'

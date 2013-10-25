@@ -29,13 +29,22 @@
 
 
 								var businesses = <%= @businesses.to_json.html_safe %> ;
-						// #das gibt uns alle der suche entsprechenden business (als array)
-						// var data = <%= @data.to_json.html_safe %>;
+						// // #das gibt uns alle der suche entsprechenden business (als array)
+						// // var data = <%= @data.to_json.html_safe %>;
 
-						for (var i = 0; i < businesses.length; i++) {
+						for (var i=0 ; i < businesses.length; i++) {
 
 
-							var marker = L.marker(i).bindPopup("name").addTo(map);
+							var marker = L.marker(businesses[i].coordinates).addTo(map);
+
+
+						// 		// <% @response["businesses"].each do |restaurant| %>
+
+							marker.bindPopup("<b>" + businesses[i].name + "</b> <br>" + businesses[i].city).openPopup();
+
+						// 		// <% end %>
+
+					// #in js muss mam + (concatenatin) machen. ist similar to #{} in ruby
 
 						};
 
@@ -126,17 +135,14 @@
 
 						<p> 
 							<img src="<%= restaurant["image_url"] %>">
-							<%= @restaurant["name"] %> 
-							<%= @restaurant["location"]["city"] %>
+							<%= restaurant["name"] %> 
+							<%= restaurant["location"]["city"] %>
 							<%= restaurant["categories"] %>
 							<a href="restaurants/<%= restaurant["id"] %>"> More details </a>
 						</p>
 										<br>
 										<br>
 										<br>
-
-										@marker_restaurant = <%= @restaurant["name"] %>
-										@marker_city = <%= @restaurant["location"]["city"] %>
 
 					<% end %>
 
