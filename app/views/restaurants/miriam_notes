@@ -27,13 +27,13 @@
 
 	<h3> <%= city %> </h3>    
 	
-	<% response["businesses"].each do |restaurant| %>
+			<% response["businesses"].each do |restaurant| %>
 
-		<p> <%=	restaurant["name"],  %> </p>
+				<p> <%=	restaurant["name"],  %> </p>
 
-		<!-- img, name, hours, rating, more details link -->
+				<!-- img, name, hours, rating, more details link -->
 
-	<% end %>
+			<% end %>
 
 <%end %>
 

@@ -19,7 +19,14 @@
 </div>
 
 <div>
-	<h2>((((Or see the results of all our Hamptons restaurants: ))))))</h2>
+	<h2> Or choose a Hamptons restaurants directly:</h2>
+
+<% @cities.each do |city| %>
+	<h3> <%= city %> </h3> <br>
+		<% @response1["businesses"].each do |business| %>
+			<a href=""> <%= business["name"] %> </a> <br>
+		<%end%>
+<% end %>
 
 
 </div>
