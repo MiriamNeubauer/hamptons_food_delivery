@@ -9,7 +9,7 @@ class UsersController < ApplicationController
 	def create 
 		user = User.create(params[:user])
 		sign_in(user)
-		redirect_to user_path(user.id)
+		redirect_to restaurant_path
 		#Alternative: rediret_to "/user/:id"
 					#"/user/:id"
 		#das geht zur show page --> s. im rake routes
