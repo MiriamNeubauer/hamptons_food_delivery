@@ -1,6 +1,7 @@
 <html>
 <head>
 <!-- #das ist alles für die reviewmenu-tabs -->
+
 			<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
 
 			<script src="http://code.jquery.com/jquery-1.9.1.js">
@@ -9,7 +10,7 @@
 			<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js">
 			</script>
 
-			<link rel="stylesheet" href="/resources/demos/style.css" />
+		<!-- 	<link rel="stylesheet" href="/resources/demos/style.css" /> -->
 
 			<script>
 			  $(function() {
@@ -23,24 +24,23 @@
 				function addRow(frm) {
 					rowNum ++;
 					var row = '<p id="rowNum'+rowNum+'">';
-					row += '<select name="item' + rowNum + '[item_type]">';
+					row += '<select name="itemwrapper[item' + rowNum + '[item_type]]">';
 					row += '<option value="appetizer">Appetizer</option>';
 					row += '<option value="maincourse">Main Course</option>';
 					row += '<option value="dessert">Dessert</option>';
 					row += '<option value="beverage">Beverage</option>';
 					row += '</select>';
-					row += 'Choose item: <input type="text" name="item' + rowNum + '[item_name]"> Select quantity: <input type="text" name="item' + rowNum + '[quantity]"> <input type="button" value="Remove" onclick="removeRow('+rowNum+');"></p>';
+					row += 'Choose item: <input type="text" name="itemwrapper[item' + rowNum + '[item_name]]"> Select quantity: <input type="text" name="itemwrapper[item' + rowNum + '[quantity]]"> <input type="button" value="Remove" onclick="removeRow('+rowNum+');"></p>';
 	
 					$('#itemRows').append($(row));
-					frm.add_qty.value = '';
-					frm.add_name.value = '';
+					// frm.add_qty.value = '';
+					// frm.add_name.value = '';
 					}
 
 				function removeRow(rnum) {
 					jQuery('#rowNum'+rnum).remove();
 					}
 			</script>
-
 
 </head>
 
@@ -80,13 +80,32 @@
 					<%end%>
 					</p>
 
-					<form>
-						<input type="text" name="post[content]" placeholder="Write your own restuarant order review">
-						<input type ="submit">
-					</form>
+<!-- #neu erstellte kommentare hier -->
+
+
+<!-- #-der teil ist zum review post -->
+
+								<form method="post" action="/posts">
+									<input type="hidden" name="post[restaurant_id]" value="<%=@restaurant_id%>">
+									<input id="new_post" type="text" name="post[content]" placeholder="Write your own restuarant order review">
+									<input type ="submit">
+								</form>
+
+<!-- #- -->
 
 			</p> 
 		</div>
+
+		<div>
+	<% @posts.each do |post| %>
+
+		<%= post.content %> <br>
+
+	<% end %>
+
+</div>
+
+
 		<div id="tabs-2"> 
 
 			<p> <!-- Das heir ist Tab Content 2.  -->
@@ -97,15 +116,15 @@
         		<div id="itemRows">
 
         			<input type="hidden" name="order[restaurant_id]" value="<%= @restaurant_id %>" >
-        		  	<select name="item[item_type]">
+        		  	<select name="itemwrapper[item[item_type]]">
 									  <option value="appetizer">Appetizer</option>
 									  <option value="maincourse">Main Course</option>
 									  <option value="dessert">Dessert</option>
 									  <option value="beverage">Beverage</option>
 								</select>
 
-	            	Choose item: <input type ="text" name="item[item_name]">
-	            	Select quantity: <input type="text" name="item[quantity]">
+	            	Choose item: <input type ="text" name="itemwrapper[item[item_name]]">
+	            	Select quantity: <input type="text" name="itemwrapper[item[quantity]]">
 
 	            	<input onclick="addRow();" type="button" value="Add row" />
 

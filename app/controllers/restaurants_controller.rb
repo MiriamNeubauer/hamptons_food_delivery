@@ -96,6 +96,8 @@ end  #for index method
 
 		@restaurant_name = params[:name]
 
+		@posts = Post.where(:restaurant_id => params[:id])
+
 	end
 
 

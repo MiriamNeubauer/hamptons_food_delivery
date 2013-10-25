@@ -8,21 +8,32 @@
 	<br>
 	<br>
 	<div>
-	<h4> Dear user ((((xyz user_name))))), here is a summary of your order: </h4>
+	<h4> Dear user ((((xyz user_name=> das funktioniert nicht, dass es hier den namen reinzieht))))) <br><br><%= @username %>, thanks for ordering at: <br><br><br>
+		<%= @order.restaurant_id %>   </h4>
 
-	<!-- zeige hier an:
-		- user_name für oben
-	- restaurant-name
-	- kaufsummer
-	- tip 
-	- estimate ddelivery time -->
+    <br><br><br>
+
+
+<h5> Here is a summary of your order: </h5>
+
+		<% @order.items.each do |item| %>
+			<%= item.item_name %> 
+			x
+			<%= item.quantity %> <br>
+		<% end %>
+
+
+    <!-- Your order number is: <%= @order.items.order %> -->
+
+<!-- 		<%= @order.items.inspect %> -->
+
 
 <br>
 <br>
 <br>
 <br>
 
-	Please check your inbox for a confirmation email.
+	Please check your email-inbox for a confirmation email. (not working!!! nur email an driver, der dann beim restaurant bestellt)
 
 	</div>
 
