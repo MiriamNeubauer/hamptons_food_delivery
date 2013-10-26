@@ -4,6 +4,15 @@ class OrdersController < ApplicationController
 	end
 
 	def create
+
+#Sende bestätigungsemail für die bestellung an den user 
+		if @order.save
+			#tell the MriimMailer to send a signup email after save
+			HamptonsfoodMailer.confirm_orders(@user).deliver
+
+			#deliver ist von rails 
+#Ende Bestellbestätigungsemail
+
 		order = params[:order]
 			order = Order.create(:restaurant_id => order[:restaurant_id], :user_id => current_user.id, :tip => order[:tip])
   

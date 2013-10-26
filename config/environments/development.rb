@@ -34,4 +34,19 @@ HamptonsfooddeliveryApp::Application.configure do
 
   # Expands the lines which load the assets
   config.assets.debug = true
+
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.smtp_settings = {
+     :authentication => :plain,
+     :address => "smtp.mailgun.org",
+     :port => 587,
+     :domain => "postmaster@hamptonsfooddelivery.herokuapp.com",
+     :user_name => "postmaster@hamptonsfooddelivery.com",
+     :password => "0uin49fqrim4"
+     :enable_starttls_auto: true
+  }
+   
+
 end

@@ -7,7 +7,7 @@ class UsersController < ApplicationController
 	end
 
 	def create 
-		user = User.create(params[:user])
+		@user = User.create(params[:user])
 		sign_in(user)
 		redirect_to user_path(user.id)
 		#Alternative: rediret_to "/user/:id"
