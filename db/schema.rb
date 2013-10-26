@@ -11,38 +11,38 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131023215252) do
+ActiveRecord::Schema.define(:version => 20131025163102) do
 
   create_table "items", :force => true do |t|
     t.string   "restaurant_id"
-    t.string   "order_id"
+    t.integer  "order_id",      :limit => 255
     t.string   "item_name"
     t.string   "item_type"
     t.decimal  "item_price"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
+    t.datetime "created_at",                   :null => false
+    t.datetime "updated_at",                   :null => false
     t.integer  "quantity"
   end
 
   create_table "orders", :force => true do |t|
     t.string   "restaurant_id"
-    t.string   "user_id"
-    t.string   "item_id"
+    t.integer  "user_id",       :limit => 255
+    t.integer  "item_id",       :limit => 255
     t.integer  "quantity"
     t.decimal  "price_sum"
     t.decimal  "sum"
     t.decimal  "tip"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
+    t.datetime "created_at",                   :null => false
+    t.datetime "updated_at",                   :null => false
   end
 
   create_table "posts", :force => true do |t|
-    t.string   "user_id"
+    t.integer  "user_id",       :limit => 255
     t.string   "restaurant_id"
     t.string   "content"
-    t.boolean  "display",       :default => true
-    t.datetime "created_at",                      :null => false
-    t.datetime "updated_at",                      :null => false
+    t.boolean  "display",                      :default => true
+    t.datetime "created_at",                                     :null => false
+    t.datetime "updated_at",                                     :null => false
   end
 
   create_table "users", :force => true do |t|
