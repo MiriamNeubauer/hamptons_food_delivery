@@ -1,6 +1,5 @@
 class OrdersController < ApplicationController
 
-
 	def index
 	end
 
@@ -16,7 +15,7 @@ class OrdersController < ApplicationController
 
 
 		params[:itemwrapper].each_value do |attrs|
-			quantity = attrs.delete(:quantity)
+			quantity = attrs.delete(:quantity).to_i
 			i = order.items.create(attrs)
 			i.quantity = quantity
 			i.save
