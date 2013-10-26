@@ -23,7 +23,7 @@ ActiveRecord::Schema.define(:version => 20131025163102) do
     t.datetime "updated_at",                   :null => false
     t.integer  "quantity"
   end
-  execute "ALTER TABLE items ADD FOREIGN KEY (restaurant_id);"
+  # execute "ALTER TABLE items ADD FOREIGN KEY (restaurant_id);"
 
   create_table "orders", :force => true do |t|
     t.string   "restaurant_id"
@@ -36,7 +36,9 @@ ActiveRecord::Schema.define(:version => 20131025163102) do
     t.datetime "created_at",                   :null => false
     t.datetime "updated_at",                   :null => false
   end
-  execute "ALTER TABLE orders ADD FOREIGN KEY (restaurant_id);"
+  # execute "ALTER TABLE orders ADD FOREIGN KEY (restaurant_id);"
+  #tried to do that to insist that restauranz_id can stay a string
+  #but did not work for heroku.
 
   create_table "posts", :force => true do |t|
     t.integer  "user_id",       :limit => 255
@@ -46,7 +48,7 @@ ActiveRecord::Schema.define(:version => 20131025163102) do
     t.datetime "created_at",                                     :null => false
     t.datetime "updated_at",                                     :null => false
   end
-  execute "ALTER TABLE posts ADD FOREIGN KEY (restaurant_id);"
+  # execute "ALTER TABLE posts ADD FOREIGN KEY (restaurant_id);"
 
   create_table "users", :force => true do |t|
     t.string   "name"
