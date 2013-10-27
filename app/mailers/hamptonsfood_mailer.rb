@@ -1,4 +1,4 @@
-# class HamptonsfoodMailer < ActionMailer::Base
+class HamptonsfoodMailer < ActionMailer::Base
 #   default from: "orders@hamptonsfooddelivery.com"
 
 # 	def confirm_orders(user)
@@ -12,4 +12,4 @@
 # #also: MiriamMailer.signup_email
 # #mail(to: @user.email, subject:
 
-# end
+end

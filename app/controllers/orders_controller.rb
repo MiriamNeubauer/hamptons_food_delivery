@@ -5,14 +5,6 @@ class OrdersController < ApplicationController
 
 	def create
 
-#Sende bestätigungsemail für die bestellung an den user 
-		# if @order.save
-		# 	#tell the MriimMailer to send a signup email after save
-		# 	HamptonsfoodMailer.confirm_orders(@user).deliver
-
-			#deliver ist von rails 
-#Ende Bestellbestätigungsemail
-
 		order = params[:order]
 			order = Order.create(:restaurant_id => order[:restaurant_id], :user_id => current_user.id, :tip => order[:tip])
   
@@ -45,7 +37,6 @@ class OrdersController < ApplicationController
 
 	def show
 
-
 		@order_id = params[:id]
 		#leitet nicht zu/id ws weil hier item UND order id auf der sieite sind und 
 		#er nicht weiß welches er nehmen soll
@@ -54,6 +45,14 @@ class OrdersController < ApplicationController
 		# render :show
 
 		@order = Order.find(params[:id])
+
+		#Sende bestätigungsemail für die bestellung an den user 
+		if @order.save
+		# 	#tell the MriimMailer to send a signup email after save
+			HamptonsfoodMailer.confirm_orders(@user).deliver
+
+			#deliver ist von rails 
+#Ende Bestellbestätigungsemail
 
 		@username = params[:order]
 	end
