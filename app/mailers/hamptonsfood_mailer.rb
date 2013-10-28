@@ -4,7 +4,7 @@ class HamptonsfoodMailer < ActionMailer::Base
 # 	def confirm_orders(user)
 
 # 		@user = user #sie in ihrem modell User.new = @user genannt
-# 		@url = 'http://hamptonsfooddelivery.herokuapp.com/sessions/new' #my website login
+# 		@url = 'http://hamptonsfooddelivery.herokuapp.com/orders/shows'
 # 		mail(to: @user.email, subject: "Thank you for your order at Hamptosnfooddelivery.com")
 # 	end
 
