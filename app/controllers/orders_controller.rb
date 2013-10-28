@@ -6,29 +6,30 @@ class OrdersController < ApplicationController
 	def create
 
 		order = params[:order]
-			order = Order.create(:restaurant_id => order[:restaurant_id], :user_id => current_user.id, :tip => order[:tip])
+			@order = Order.create(:restaurant_id => order[:restaurant_id], :user_id => current_user.id, :tip => order[:tip])
   
-   # raise order.inspect
-  	# item = params[:item]
-			# order.items.create(:item_name => item[:item_name], :item_type => item[:item_type], :quantity => item[:quantity].to_i)
-
-		# binding.pry
-
 
 		params[:itemwrapper].each_value do |attrs|
 			quantity = attrs.delete(:quantity).to_i
-			i = order.items.create(attrs)
+			i = @order.items.create(attrs)
 			i.quantity = quantity
 			i.save
 		end
 
-		# raise item.inspect
-	#order.items.create damit haben wir ein leeres hash erstellt => sieht man in bash. geht deshlab weil wir belongs<-to beziehung haben
-
+		#Sende bestätigungsemail für die bestellung an den user:
+    # respond_to do |format|
+    	if
+     	@order.save
+      #tell the MriimMailer to send a signup email after save
+			HamptonsfoodMailer.confirm_orders(current_user).deliver
  
-  #wir schreiben current_user.id weil es nichts ausmacht. wenn es keinen current_user gibt, dann schreibt es einfach nil
-
-  #item type wäre appetizer, dessert, main, beverage
+     #    format.html { redirect_to(@user, notice: 'Confirmation email was sent to your account.') }
+     #    format.json { render json: @user, status: :created, location: @user }
+     #  else
+     #    format.html { render action: 'new' }
+     #    format.json { render json: @user.errors, status: :unprocessable_entity }
+    	# end #end for if-else
+  	end #end for do
 
   	redirect_to order #das gehtbzu der order variable die wir gerade kreiert ahben
 		#am ende von create IMMER REDIRECT
@@ -36,27 +37,9 @@ class OrdersController < ApplicationController
 
 
 	def show
-
 		@order_id = params[:id]
-		#leitet nicht zu/id ws weil hier item UND order id auf der sieite sind und 
-		#er nicht weiß welches er nehmen soll
-
-		# redirect_to order_path
-		# render :show
-
 		@order = Order.find(params[:id])
-
-		#Sende bestätigungsemail für die bestellung an den user 
-		if @order.save
-		# 	#tell the MriimMailer to send a signup email after save
-			HamptonsfoodMailer.confirm_orders(@user).deliver
-
-			#deliver ist von rails 
-#Ende Bestellbestätigungsemail
-
 		@username = params[:order]
 	end
-
-end
 
 end

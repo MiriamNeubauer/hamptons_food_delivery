@@ -1,15 +1,10 @@
 class HamptonsfoodMailer < ActionMailer::Base
-#   default from: "orders@hamptonsfooddelivery.com"
+  default from: "orders@hamptonsfooddelivery.com"
 
-# 	def confirm_orders(user)
+	def confirm_orders(user)
 
-# 		@user = user #sie in ihrem modell User.new = @user genannt
-# 		@url = 'http://hamptonsfooddelivery.herokuapp.com/orders/shows'
-# 		mail(to: @user.email, subject: "Thank you for your order at Hamptosnfooddelivery.com")
-# 	end
-
-# #im controller muss ich dann die methode signup_email auf die class miriam_mailer werfen,
-# #also: MiriamMailer.signup_email
-# #mail(to: @user.email, subject:
-
+		@user = user #sie in ihrem modell User.new = @user genannt
+		# @url = 'http://hamptonsfooddelivery.herokuapp.com/orders/show' #ich brauch in der email der bestellbestätigung keinen link
+		mail(to: @user.email, subject: "Thank you for your order at Hamptosnfooddelivery.com")
+	end
 end

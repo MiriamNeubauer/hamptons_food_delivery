@@ -10,11 +10,6 @@ class UsersController < ApplicationController
 		@user = User.create(params[:user])
 		sign_in(@user)
 		redirect_to user_path(@user.id)
-		#Alternative: rediret_to "/user/:id"
-					#"/user/:id"
-		#das geht zur show page --> s. im rake routes
-		#redirect_to users_path würde zum index lenken
-		#user_path(user.id) macht man damit man dem user.id seine spezifische eigene page zeigen
 	end
 
 	def show

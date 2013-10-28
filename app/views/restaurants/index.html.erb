@@ -41,88 +41,7 @@
 						// 		// <% @response["businesses"].each do |restaurant| %>
 
 							marker.bindPopup("<b>" + businesses[i].name + "</b> <br>" + businesses[i].city).openPopup();
-
-						// 		// <% end %>
-
-					// #in js muss mam + (concatenatin) machen. ist similar to #{} in ruby
-
 						};
-
-						//wir können einfach L.marker(i) schreiben weil i selbst das [olat, olng] array ist für jedes business!!!
-
-// #das machen wir weil die addresse ja aus 3 elementen besteht
-										// var address = data[i].location.display_address[0] + data[i].location.display_address[1] + data[i].location.display_address[2]
-						
-										// #den teil habe ich aus dem Google Maps API v3 Geocoder hinzugefügt: von hier: http://www.etechpulse.com/2013/09/how-to-geocode-address-or-zip-code.html
-										//Geocode function for the origin location:
-
-										// function GoogleGeocode() {
-										// 	  geocoder = new google.maps.Geocoder();
-										// 	  this.geocode = function(address, callbackFunction) {
-										// 	      geocoder.geocode( { 'address': address}, function(results, status) {
-										// 	        if (status == google.maps.GeocoderStatus.OK) {
-										// 	          var result = {};
-										// 	          result.latitude = results[0].geometry.location.lat();
-										// 	          result.longitude = results[0].geometry.location.lng();
-										// 	          callbackFunction(result);
-										// 	        } else {
-										// 	          alert("Geocode was not successful for the following reason: " + status);
-										// 	          callbackFunction(null);
-										// 	        }
-										// 	      });
-										// 	  };
-										// 	}	
-
-
-										// query = URI::escape(address) 
-										// // #escape nimmt einfach die white spaces zwischen den sachen raus
-										// result = Typhoeus.get("http://maps.googleapis.com/maps/api/geocode/json?address=#{query}&sensor=true")
-										// result_hash = JSON.parse(result.body)
-										// result_hash["results"].each do |result|
-										// 	var olat = result["geometry"]["location"]["lat"]
-										// 	var olng = result["geometry"]["location"]["lng"]
-										// end
-									//Process form restaurant locations, weil man ja die google geocode methode auf etwas anwenden muss
-
-										      // var g = new GoogleGeocode();
-
-										      // g.geocode(address, function(data) {
-										      //   if(data != null) {
-										      //     var olat = data.latitude;
-										      //     var olng = data.longitude;
-
-										          // return olat;
-										          // return olng;
-										          // #man kann immer nur 1 item wiedergeben.also nur 1 return, nicht 2 für olat und olng
-
-										          // #man kann diese variablen nur innerhalb diese funktion wieder aufgreifen!!! nicht woanders. wenn man es woanders a
-										          // #aufgreiden will dann muss man eine variable außerhalb diese funktion aufsetzen
-
-										          // var olat_new = [olat, olng];
-															// #fügt die marker hinzu
-
-															// create marker
-															// get business info from data object
-															// set up the popup thing
-
-															
-										          // return olat_new;
-
-										        // } else {
-										        //   //Unable to geocode
-										        //   alert('ERROR! Unable to geocode address');
-										        // }
-										      // });
-							// } //schließt das for-loop
-
-
-
-			// #sorgt dafür, dass ein text aufpoppt wenn man einen marker anklickt. und das für jedes geladenen restaurant.
-			// 					<% @response["businesses"].each do |restaurant| %>
-
-			// 								marker.bindPopup("<b> <%= restaurant["name"] %> </b> <br> <%= restaurant["location"]["city"] %> ").openPopup();
-
-			// 					<% end %>
 
 						</script>
 
@@ -145,15 +64,6 @@
 										<br>
 
 					<% end %>
-<!-- 
-<%= @response %>  -->
-
-
-<!-- #brauche ich bier einen zusätzlichen yelpster request im controller???????nein!! -->
-<!-- #das problem ist ein anderes: der request gibt einem nicht die latidude u longitude von jedem restaurant zurück!!! sondern nur die von der region, in dem die für die suche relevanten restaurants liegen sowie deren geografisches zentrum -->
-<!-- #FEHLWERHAFT!!!! ich brauch die geodate von jedem restaurant!! -->
-
-
 
 </body>
 </html>
