@@ -35,7 +35,6 @@ module RestaurantsHelper
 								name: business["name"],
 								city: business["location"]["city"]
 							}
-								end
 						end
 		
 	end
