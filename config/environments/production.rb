@@ -71,7 +71,7 @@ HamptonsfooddeliveryApp::Application.configure do
      :address => "smtp.mailgun.org",
      :port => 587,
      :domain => "hamptonsfooddelivery.herokuapp.com",
-     :user_name => "postmaster@hamptonsfooddelivery.com",
+     :user_name => "postmaster@hamptonsfooddelivery.herokuapp.com",
      :password => "0uin49fqrim4"
      # :enable_starttls_auto: true
   }
