@@ -28,7 +28,7 @@ class OrdersController < ApplicationController
      #    format.html { render action: 'new' }
      #    format.json { render json: @user.errors, status: :unprocessable_entity }
     	# end #end for if-else
-  	end #end for do
+  	#end for do
 
   	redirect_to order #das gehtbzu der order variable die wir gerade kreiert ahben
 		#am ende von create IMMER REDIRECT
