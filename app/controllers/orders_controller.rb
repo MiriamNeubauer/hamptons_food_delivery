@@ -18,10 +18,9 @@ class OrdersController < ApplicationController
 
 		#Sende bestätigungsemail für die bestellung an den user:
     # respond_to do |format|
-    	if
-     	@order.save
+    	if	@order.save
       #tell the MriimMailer to send a signup email after save
-			HamptonsfoodMailer.confirm_orders(current_user).deliver
+			#HamptonsfoodMailer.confirm_orders(current_user).deliver
  
      #    format.html { redirect_to(@user, notice: 'Confirmation email was sent to your account.') }
      #    format.json { render json: @user, status: :created, location: @user }
