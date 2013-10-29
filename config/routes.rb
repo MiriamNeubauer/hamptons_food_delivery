@@ -9,8 +9,6 @@ resources :sessions, only: [:new, :create]
 
 root to: 'hamptons#index'
 
-get '/', to: 'hamptons#index'
-
 get '/hamptons', to: 'hamptons#index'
 
 get '/restaurants/new', to: 'restaurants#new'
