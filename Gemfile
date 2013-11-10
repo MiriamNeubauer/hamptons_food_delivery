@@ -13,6 +13,8 @@ gem 'typhoeus'
 
 gem 'json'
 
+gem 'gon'
+
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -36,6 +38,7 @@ group :development, :test do
 	gem 'pry'
 	gem 'pry-rails' 
 	gem 'sqlite3'
+	gem 'konacha'
 end
   
   gem 'bootstrap-sass-rails'
@@ -45,7 +48,6 @@ gem 'jquery-rails'
 
 # To use ActiveModel has_secure_password
 gem 'bcrypt-ruby', '~> 3.0.0'
-
 
 
 # To use Jbuilder templates for JSON

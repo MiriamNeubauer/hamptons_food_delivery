@@ -10,36 +10,23 @@
 			<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js">
 			</script>
 
-		<!-- 	<link rel="stylesheet" href="/resources/demos/style.css" /> -->
-
 			<script>
 			  $(function() {
-			    $( "#tabs" ).tabs();
+			    createTabs();
 			  });
 			</script>
 
        <!-- #das ist dafür, dass wenn man auf add more klickt, man mehr felder bekommt um essen hinzuzufügen -->
 			<script>
 				var rowNum = 0;
-				function addRow(frm) {
-					rowNum ++;
-					var row = '<p id="rowNum'+rowNum+'">';
-					row += '<select name="itemwrapper[item' + rowNum + '[item_type]]">';
-					row += '<option value="appetizer">Appetizer</option>';
-					row += '<option value="maincourse">Main Course</option>';
-					row += '<option value="dessert">Dessert</option>';
-					row += '<option value="beverage">Beverage</option>';
-					row += '</select>';
-					row += 'Choose item: <input type="text" name="itemwrapper[item' + rowNum + '[item_name]]"> Select quantity: <input type="text" name="itemwrapper[item' + rowNum + '[quantity]]"> <input type="button" value="Remove" onclick="removeRow('+rowNum+');"></p>';
-	
-					$('#itemRows').append($(row));
-					// frm.add_qty.value = '';
-					// frm.add_name.value = '';
-					}
 
-				function removeRow(rnum) {
-					jQuery('#rowNum'+rnum).remove();
-					}
+				$(function() {
+					addRow(frm);
+				});
+
+				$(function() {
+					removeRow(rnum);
+				});
 			</script>
 
 </head>

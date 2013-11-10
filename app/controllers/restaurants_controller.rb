@@ -1,15 +1,23 @@
 class RestaurantsController < ApplicationController
 
-include Yelp::V2::Search::Request
-include Yelp::V2::Business::Request
+after_filter do
+	if @businesses
+		gon.businesses = @businesses
+	end
+end
+
+# include Yelp::V2::Search::Request
+# include Yelp::V2::Business::Request
+#=> sind jetzt im helper!
+include RestaurantsHelper
 
 	def index
 			yelpster_query1
-			yelpster_query2_geodata
+			# yelpster_query2_geodata
 	end
 
 	def new
-			yelpster_fulllist_query
+		yelpster_fulllist_query
 	end
 
 
